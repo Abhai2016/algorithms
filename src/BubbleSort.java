@@ -8,18 +8,12 @@ public class BubbleSort {
     }
 
     private static void bubbleSort(int[] arr) {
-        int unsortedIndex = arr.length - 1;
-
-        while(unsortedIndex != 0) {
+        for (int unsortedIndex = arr.length - 1; unsortedIndex > 0; unsortedIndex--) {
             for (int i = 0; i < unsortedIndex; i++) {
                 if (arr[i] > arr[i + 1]) {
                     int temp = arr[i];
                     arr[i] = arr[i + 1];
                     arr[i + 1] = temp;
-                }
-
-                if (i == unsortedIndex - 1) {
-                    unsortedIndex--;
                 }
             }
         }
