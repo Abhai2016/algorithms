@@ -3,8 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 3, 2, 5, 4, 1 };
         printArray("Unsorted Array", arr);
 
-        //bubbleSort(arr);
-        selectionSort(arr);
+        insertionSort(arr);
 
         printArray("Sorted Array", arr);
     }
@@ -40,12 +39,25 @@ public class SortAlgorithms {
             int largestIndex = 0;
 
             for (int i = 0; i <= unsortedIndex; i++) {
-                if (arr[i] > arr[largestIndex]) {
+                if (arr[i] > arr[largestIndex]) { // change to >= to make it stable
                     largestIndex = i;
                 }
             }
 
             swap(arr, largestIndex, unsortedIndex);
+        }
+    }
+
+    private static void insertionSort(int[] arr) {
+        for (int firstUnsortedIndex = 1; firstUnsortedIndex < arr.length; firstUnsortedIndex++) {
+            int newElement = arr[firstUnsortedIndex];
+            int i;
+
+            for (i = firstUnsortedIndex; i > 0 && arr[i - 1] > newElement; i--) {
+                arr[i] = arr[i - 1];
+            }
+
+            arr[i] = newElement;
         }
     }
 }
