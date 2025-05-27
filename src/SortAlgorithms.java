@@ -3,7 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 3, 2, 5, 4, 1 };
         printArray("Unsorted Array", arr);
 
-        insertionSort(arr);
+        shellSort(arr);
 
         printArray("Sorted Array", arr);
     }
@@ -53,11 +53,27 @@ public class SortAlgorithms {
             int newElement = arr[firstUnsortedIndex];
             int i;
 
-            for (i = firstUnsortedIndex; i > 0 && arr[i - 1] > newElement; i--) {
+            for (i = firstUnsortedIndex; i > 0 && newElement < arr[i - 1]; i--) {
                 arr[i] = arr[i - 1];
             }
 
             arr[i] = newElement;
+        }
+    }
+
+    private static void shellSort(int[] arr) {
+        for (int gap = arr.length; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int newElement = arr[i];
+                int j = i;
+
+                while (j >= gap && newElement < arr[j - gap]) {
+                    arr[j] = arr[j - gap];
+                    j -= gap;
+                }
+
+                arr[j] = newElement;
+            }
         }
     }
 }
