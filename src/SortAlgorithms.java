@@ -24,6 +24,23 @@ public class SortAlgorithms {
         arr[j] = temp;
     }
 
+    private static void insertionSort(int[] arr, int gap) {
+        for (int i = gap; i < arr.length; i++) {
+            int newElement = arr[i];
+            int j;
+
+            for (j = i; j >= gap && newElement < arr[j - gap]; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+
+            arr[j] = newElement;
+        }
+    }
+
+    private static void insertionSort(int[] arr) {
+        insertionSort(arr, 1);
+    }
+
     private static void bubbleSort(int[] arr) {
         for (int unsortedIndex = arr.length - 1; unsortedIndex > 0; unsortedIndex--) {
             for (int i = 0; i < unsortedIndex; i++) {
@@ -48,31 +65,9 @@ public class SortAlgorithms {
         }
     }
 
-    private static void insertionSort(int[] arr) {
-        for (int firstUnsortedIndex = 1; firstUnsortedIndex < arr.length; firstUnsortedIndex++) {
-            int newElement = arr[firstUnsortedIndex];
-            int i;
-
-            for (i = firstUnsortedIndex; i > 0 && newElement < arr[i - 1]; i--) {
-                arr[i] = arr[i - 1];
-            }
-
-            arr[i] = newElement;
-        }
-    }
-
     private static void shellSort(int[] arr) {
         for (int gap = arr.length; gap > 0; gap /= 2) {
-            for (int i = gap; i < arr.length; i++) {
-                int newElement = arr[i];
-                int j;
-
-                for (j = i; j >= gap && newElement < arr[j - gap]; j -= gap) {
-                    arr[j] = arr[j - gap];
-                }
-
-                arr[j] = newElement;
-            }
+            insertionSort(arr, gap);
         }
     }
 }
