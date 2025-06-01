@@ -65,11 +65,10 @@ public class SortAlgorithms {
         for (int gap = arr.length; gap > 0; gap /= 2) {
             for (int i = gap; i < arr.length; i++) {
                 int newElement = arr[i];
-                int j = i;
+                int j;
 
-                while (j >= gap && newElement < arr[j - gap]) {
+                for (j = i; j >= gap && newElement < arr[j - gap]; j -= gap) {
                     arr[j] = arr[j - gap];
-                    j -= gap;
                 }
 
                 arr[j] = newElement;
