@@ -3,7 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 3, 2, 5, 4, 1 };
         printArray("Unsorted Array", arr);
 
-        shellSort(arr);
+        mergeSort(arr);
 
         printArray("Sorted Array", arr);
     }
@@ -69,5 +69,38 @@ public class SortAlgorithms {
         for (int gap = arr.length; gap > 0; gap /= 2) {
             insertionSort(arr, gap);
         }
+    }
+
+    private static void mergeSort(int[] arr) {
+        mergeSort(arr, 0 ,arr.length);
+    }
+
+    private static void mergeSort(int[] arr, int start, int end) {
+        if (end - start < 2) {
+            return;
+        }
+
+        int mid = (start + end) / 2;
+        mergeSort(arr, start, mid);
+        mergeSort(arr, mid, end);
+        merge(arr, start, mid, end);
+    }
+
+    private static void merge(int[] arr, int start, int mid, int end) {
+        if (arr[mid - 1] < arr[mid]) {
+            return;
+        }
+
+        int i = start;
+        int j = mid;
+        int tempIndex = 0;
+
+        int[] tempArray = new int[end - start];
+        while(i < mid && j < end) {
+            tempArray[tempIndex++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
+        }
+
+        System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
+        System.arraycopy(tempArray, 0, arr, start, tempIndex);
     }
 }
