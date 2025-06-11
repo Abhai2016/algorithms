@@ -24,23 +24,6 @@ public class SortAlgorithms {
         arr[j] = temp;
     }
 
-    private static void insertionSort(int[] arr, int gap) {
-        for (int i = gap; i < arr.length; i++) {
-            int newElement = arr[i];
-            int j;
-
-            for (j = i; j >= gap && newElement < arr[j - gap]; j -= gap) {
-                arr[j] = arr[j - gap];
-            }
-
-            arr[j] = newElement;
-        }
-    }
-
-    private static void insertionSort(int[] arr) {
-        insertionSort(arr, 1);
-    }
-
     private static void bubbleSort(int[] arr) {
         for (int unsortedIndex = arr.length - 1; unsortedIndex > 0; unsortedIndex--) {
             for (int i = 0; i < unsortedIndex; i++) {
@@ -53,20 +36,39 @@ public class SortAlgorithms {
 
     private static void selectionSort(int[] arr) {
         for (int unsortedIndex = arr.length - 1; unsortedIndex > 0; unsortedIndex--) {
-            int largestIndex = 0;
+            int largestIndex = unsortedIndex;
 
-            for (int i = 0; i <= unsortedIndex; i++) {
-                if (arr[i] > arr[largestIndex]) { // change to >= to make it stable
+            for (int i = 0; i < unsortedIndex; i++) {
+                if (arr[largestIndex] < arr[i]) { // change to <= to make it stable
                     largestIndex = i;
                 }
             }
 
-            swap(arr, largestIndex, unsortedIndex);
+            if (largestIndex != unsortedIndex) {
+                swap(arr, largestIndex, unsortedIndex);
+            }
+        }
+    }
+
+    private static void insertionSort(int[] arr) {
+        insertionSort(arr, 1);
+    }
+
+    private static void insertionSort(int[] arr, int gap) {
+        for (int i = gap; i < arr.length; i++) {
+            int elementToInsert = arr[i];
+            int j;
+
+            for (j = i; j >= gap && elementToInsert < arr[j - gap]; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+
+            arr[j] = elementToInsert;
         }
     }
 
     private static void shellSort(int[] arr) {
-        for (int gap = arr.length; gap > 0; gap /= 2) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             insertionSort(arr, gap);
         }
     }
@@ -76,31 +78,31 @@ public class SortAlgorithms {
     }
 
     private static void mergeSort(int[] arr, int start, int end) {
-        if (end - start < 2) {
-            return;
-        }
+      if (end - start < 2) {
+          return;
+      }
 
-        int mid = (start + end) / 2;
-        mergeSort(arr, start, mid);
-        mergeSort(arr, mid, end);
-        merge(arr, start, mid, end);
+      int mid = (start + end) / 2;
+      mergeSort(arr, start, mid);
+      mergeSort(arr, mid, end);
+      merge(arr, start, mid, end);
     }
 
     private static void merge(int[] arr, int start, int mid, int end) {
-        if (arr[mid - 1] < arr[mid]) {
-            return;
-        }
+      if (arr[mid - 1] < arr[mid]) {
+          return;
+      }
 
-        int i = start;
-        int j = mid;
-        int tempIndex = 0;
+      int i = start;
+      int j = mid;
+      int tempIndex = 0;
 
-        int[] tempArray = new int[end - start];
-        while(i < mid && j < end) {
-            tempArray[tempIndex++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
-        }
+      int[] tempArr = new int[end - start];
+      while (i < mid && j < end) {
+          tempArr[tempIndex++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
+      }
 
-        System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
-        System.arraycopy(tempArray, 0, arr, start, tempIndex);
+      System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
+      System.arraycopy(tempArr, 0, arr, start, tempIndex);
     }
 }
