@@ -1,6 +1,6 @@
 public class SortAlgorithms {
     public static void main(String[] args) {
-        int[] arr = { 3, 2, 5, 4, 1 };
+        int[] arr = { 20, 35, -15, 7, 55, 1, -22 };
         printArray("Unsorted Array", arr);
 
         quickSort(arr);
