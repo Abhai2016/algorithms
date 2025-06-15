@@ -3,7 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 3, 2, 5, 4, 1 };
         printArray("Unsorted Array", arr);
 
-        mergeSort(arr);
+        quickSort(arr);
 
         printArray("Sorted Array", arr);
     }
@@ -104,5 +104,41 @@ public class SortAlgorithms {
 
       System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
       System.arraycopy(tempArr, 0, arr, start, tempIndex);
+    }
+
+    private static void quickSort(int[] arr) {
+        quickSort(arr, 0, arr.length);
+    }
+
+    private static void quickSort(int[] arr, int start, int end) {
+        if (end - start < 2) {
+            return;
+        }
+
+        int pivotIndex = partition(arr, start, end);
+        quickSort(arr, start, pivotIndex);
+        quickSort(arr, pivotIndex + 1, end);
+    }
+
+    private static int partition(int[] arr, int start, int end) {
+        int pivot = arr[start];
+        int i = start;
+        int j = end;
+
+        while (i < j) {
+            while (i < j && arr[--j] >= pivot);
+            if (i < j) {
+                arr[i] = arr[j];
+            }
+
+            while (i < j && arr[++i] <= pivot);
+            if (i < j) {
+                arr[j] = arr[i];
+            }
+
+        }
+
+        arr[j] = pivot;
+        return j;
     }
 }
