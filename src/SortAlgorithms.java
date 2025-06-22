@@ -78,32 +78,32 @@ public class SortAlgorithms {
     }
 
     private static void mergeSort(int[] arr, int start, int end) {
-      if (end - start < 2) {
-          return;
-      }
+        if (end - start < 2) {
+            return;
+        }
 
-      int mid = (start + end) / 2;
-      mergeSort(arr, start, mid);
-      mergeSort(arr, mid, end);
-      merge(arr, start, mid, end);
+        int mid = (start + end) / 2;
+        mergeSort(arr, start, mid);
+        mergeSort(arr, mid, end);
+        merge(arr, start, mid, end);
     }
 
     private static void merge(int[] arr, int start, int mid, int end) {
-      if (arr[mid - 1] < arr[mid]) {
-          return;
-      }
+        if (arr[mid - 1] < arr[mid]) {
+            return;
+        }
 
-      int i = start;
-      int j = mid;
-      int tempIndex = 0;
+        int i = start;
+        int j = mid;
+        int tempIndex = 0;
 
-      int[] tempArr = new int[end - start];
-      while (i < mid && j < end) {
-          tempArr[tempIndex++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
-      }
+        int[] tempArr = new int[end - start];
+        while (i < mid && j < end) {
+            tempArr[tempIndex++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
+        }
 
-      System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
-      System.arraycopy(tempArr, 0, arr, start, tempIndex);
+        System.arraycopy(arr, i, arr, start + tempIndex, mid - i);
+        System.arraycopy(tempArr, 0, arr, start, tempIndex);
     }
 
     private static void quickSort(int[] arr) {
@@ -111,34 +111,34 @@ public class SortAlgorithms {
     }
 
     private static void quickSort(int[] arr, int start, int end) {
-        if (end - start < 2) {
-            return;
-        }
+       if (end - start < 2) {
+           return;
+       }
 
-        int pivotIndex = divideAndConquer(arr, start, end);
-        quickSort(arr, start, pivotIndex);
-        quickSort(arr, pivotIndex + 1, end);
+       int pivotIndex = divideAndConquer(arr, start, end);
+       quickSort(arr, start, pivotIndex);
+       quickSort(arr, pivotIndex + 1, end);
     }
 
     private static int divideAndConquer(int[] arr, int start, int end) {
-        int pivot = arr[start];
-        int i = start;
-        int j = end;
+       int pivot = arr[start];
+       int i = start;
+       int j = end;
 
-        while (i < j) {
-            while (i < j && arr[--j] >= pivot) {}
-            if (i < j) {
-                arr[i] = arr[j];
-            }
+       while (i < j) {
+           while (i < j && pivot <= arr[--j]) {}
+           if (i < j) {
+               arr[i] = arr[j];
+           }
 
-            while (i < j && arr[++i] <= pivot) {}
-            if (i < j) {
-                arr[j] = arr[i];
-            }
-        }
+           while (i < j && arr[++i] <= pivot) {}
+           if (i < j) {
+               arr[j] = arr[i];
+           }
+       }
 
-        arr[i] = pivot;
-        return i;
+       arr[i] = pivot;
+       return i;
     }
 
     private static void countingSort() {
@@ -151,16 +151,17 @@ public class SortAlgorithms {
     }
 
     private static void countingSort(int[] arr, int start, int end) {
-        int[] tempArray = new int[(end - start) + 1];
+        int[] tempArr = new int[(end - start) + 1];
+
         for (int i = 0; i < arr.length; i++) {
-            tempArray[arr[i] - start]++;
+            tempArr[arr[i] - start]++;
         }
 
         int j = 0;
-        for (int i = 0; i < tempArray.length; i++) {
-            while (tempArray[i] > 0) {
+        for (int i = 0; i < tempArr.length; i++) {
+            while (tempArr[i] > 0) {
                 arr[j++] = i + start;
-                tempArray[i]--;
+                tempArr[i]--;
             }
         }
     }
