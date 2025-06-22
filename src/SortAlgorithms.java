@@ -3,7 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 20, 35, -15, 7, 55, 1, -22 };
         printArray("Unsorted Array", arr);
 
-        quickSort(arr);
+        countingSort();
 
         printArray("Sorted Array", arr);
     }
@@ -139,5 +139,29 @@ public class SortAlgorithms {
 
         arr[i] = pivot;
         return i;
+    }
+
+    private static void countingSort() {
+        int[] arr = new int[] { 25, 22, 27, 20, 23, 26, 26, 24, 28 };
+        int start = 20;
+        int end = 28;
+
+        countingSort(arr, start, end);
+        printArray("Sorted Array", arr);
+    }
+
+    private static void countingSort(int[] arr, int start, int end) {
+        int[] tempArray = new int[(end - start) + 1];
+        for (int i = 0; i < arr.length; i++) {
+            tempArray[arr[i] - start]++;
+        }
+
+        int j = 0;
+        for (int i = 0; i < tempArray.length; i++) {
+            while (tempArray[i] > 0) {
+                arr[j++] = i + start;
+                tempArray[i]--;
+            }
+        }
     }
 }
