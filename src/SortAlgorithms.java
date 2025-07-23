@@ -3,7 +3,7 @@ public class SortAlgorithms {
         int[] arr = { 20, 35, -15, 7, 55, 1, -22 };
         printArray("Unsorted Array", arr);
 
-        countingSort();
+        recursiveInsertionSort(arr, arr.length);
 
         printArray("Sorted Array", arr);
     }
@@ -65,6 +65,22 @@ public class SortAlgorithms {
 
             arr[j] = elementToInsert;
         }
+    }
+
+    private static void recursiveInsertionSort(int[] arr, int numItems) {
+        if (numItems < 2)
+            return;
+
+        recursiveInsertionSort(arr, numItems - 1);
+
+        int elementToInsert = arr[numItems - 1];
+        int i;
+
+        for (i = numItems - 1; i > 0 && elementToInsert < arr[i - 1]; i--) {
+            arr[i] = arr[i - 1];
+        }
+
+        arr[i] = elementToInsert;
     }
 
     private static void shellSort(int[] arr) {
